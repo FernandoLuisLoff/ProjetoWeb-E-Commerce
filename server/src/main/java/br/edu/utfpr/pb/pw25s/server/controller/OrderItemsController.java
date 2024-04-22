@@ -9,13 +9,13 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping("orderItems")
+@RequestMapping("order-items")
 public class OrderItemsController extends CrudController<OrderItems, OrderItemsDto, Long> {
 
     private final IOrderItemsService service;
     private final ModelMapper modelMapper;
 
-    public OrderItemsController(IOrderItemsService service, ModelMapper modelMapper, IOrderItemsService orderItemsService) {
+    public OrderItemsController(IOrderItemsService service, ModelMapper modelMapper) {
         super(OrderItems.class, OrderItemsDto.class);
         this.service = service;
         this.modelMapper = modelMapper;

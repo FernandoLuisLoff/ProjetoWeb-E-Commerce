@@ -4,7 +4,9 @@ import br.edu.utfpr.pb.pw25s.server.model.OrderItems;
 import br.edu.utfpr.pb.pw25s.server.repository.OrderItemsRepository;
 import br.edu.utfpr.pb.pw25s.server.service.IOrderItemsService;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.stereotype.Service;
 
+@Service
 public class OrderItemsService  extends CrudServiceImpl<OrderItems, Long>
         implements IOrderItemsService {
 
