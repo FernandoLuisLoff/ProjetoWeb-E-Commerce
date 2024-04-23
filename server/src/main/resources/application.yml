@@ -31,3 +31,15 @@ spring:
   jpa:
     hibernate:
       ddl-auto: create-drop
+---
+spring:
+  config:
+    activate:
+      on-profile: test
+  datasource:
+    url: jdbc:postgresql://127.0.0.1:5432/ProjetoWeb
+    username: postgres
+    password: postgres
+  jpa:
+    hibernate:
+      ddl-auto: create-drop
