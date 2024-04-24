@@ -3,6 +3,7 @@ package br.edu.utfpr.pb.pw25s.server;
 import br.edu.utfpr.pb.pw25s.server.dto.CategoryDto;
 import br.edu.utfpr.pb.pw25s.server.error.ApiError;
 import br.edu.utfpr.pb.pw25s.server.model.Category;
+import br.edu.utfpr.pb.pw25s.server.model.Product;
 import br.edu.utfpr.pb.pw25s.server.model.User;
 import br.edu.utfpr.pb.pw25s.server.repository.CategoryRepository;
 import br.edu.utfpr.pb.pw25s.server.shared.GenericResponse;
@@ -40,18 +41,17 @@ public class CategoryControllerTest {
     }
 
     @Test
-    public void postCategory_whenCategoryIsValid_receiveOk() {
-        ResponseEntity<CategoryDto> response =
-                testRestTemplate.postForEntity(
-                        API_CATEGORIES,
-                        createValidCategory(),
-                        CategoryDto.class);
-        assertThat(response.getBody().getName()).isNotNull();
-    }
+    public void findAllCategoryTest() {
+        categoryRepository.save(Category.builder().name("category1").build());
+        categoryRepository.save(Category.builder().name("category2").build());
 
-    private Category createValidCategory() {
-        return Category.builder()
-                .name("test-category")
-                .build();
+        ResponseEntity<Category[]> response =
+                testRestTemplate.getForEntity(
+                        API_CATEGORIES,
+                        Category[].class);
+
+        assertThat(response.getStatusCode()).isEqualTo(HttpStatus.OK);
+        assertThat(response.getBody()).isNotNull();
+        assertThat(response.getBody()).hasSize(2);
     }
 }

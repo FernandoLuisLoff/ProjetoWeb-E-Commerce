@@ -1,12 +1,13 @@
 package br.edu.utfpr.pb.pw25s.server;
 
 import br.edu.utfpr.pb.pw25s.server.model.Category;
-import br.edu.utfpr.pb.pw25s.server.model.Product;
-import br.edu.utfpr.pb.pw25s.server.repository.CategoryRepository;
-import br.edu.utfpr.pb.pw25s.server.repository.ProductRepository;
+import br.edu.utfpr.pb.pw25s.server.model.Order;
+import br.edu.utfpr.pb.pw25s.server.model.User;
+import br.edu.utfpr.pb.pw25s.server.repository.OrderRepository;
+import br.edu.utfpr.pb.pw25s.server.repository.UserRepository;
 import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.web.client.TestRestTemplate;
@@ -20,38 +21,38 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 @ActiveProfiles("test")
-public class ProductControllerTest {
-    private final String API_PRODUCTS = "/products";
+public class OrderControllerTest {
+    private final String API_ORDERS = "/orders";
 
     @Autowired
     private TestRestTemplate testRestTemplate;
 
     @Autowired
-    private ProductRepository productRepository;
+    private OrderRepository orderRepository;
 
     @Autowired
-    private CategoryRepository categoryRepository;
+    private UserRepository userRepository;
 
     @BeforeEach
     public void cleanup() {
-        productRepository.deleteAll();
-        categoryRepository.deleteAll();
+        orderRepository.deleteAll();
+        userRepository.deleteAll();
         testRestTemplate.getRestTemplate().getInterceptors().clear();
     }
 
     @Test
     @DisplayName("Espera retorno de produtos inseridos para teste usando findAll")
-    public void findAllProductsTest() {
-        Category category = Category.builder().name("category").build();
-        categoryRepository.save(category);
+    public void findAllOrderTest() {
+        User user = User.builder().displayName("Name").username("username").password("password").build();
+        userRepository.save(user);
 
-        productRepository.save(Product.builder().name("product1").price(BigDecimal.valueOf(100)).category(category).build());
-        productRepository.save(Product.builder().name("product2").price(BigDecimal.valueOf(150)).category(category).build());
+        orderRepository.save(Order.builder().totalValue(BigDecimal.valueOf(100)).user(user).build());
+        orderRepository.save(Order.builder().totalValue(BigDecimal.valueOf(150)).user(user).build());
 
-        ResponseEntity<Product[]> response =
+        ResponseEntity<Order[]> response =
                 testRestTemplate.getForEntity(
-                        API_PRODUCTS,
-                        Product[].class);
+                        API_ORDERS,
+                        Order[].class);
 
         assertThat(response.getStatusCode()).isEqualTo(HttpStatus.OK);
         assertThat(response.getBody()).isNotNull();
