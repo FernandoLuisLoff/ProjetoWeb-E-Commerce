@@ -41,9 +41,9 @@ public class OrderControllerTest {
     }
 
     @Test
-    @DisplayName("Espera retorno de produtos inseridos para teste usando findAll")
+    @DisplayName("Espera retorno de pedidos inseridos para teste usando findAll")
     public void findAllOrderTest() {
-        User user = User.builder().displayName("Name").username("username").password("password").build();
+        User user = createUser();
         userRepository.save(user);
 
         orderRepository.save(Order.builder().totalValue(BigDecimal.valueOf(100)).user(user).build());
@@ -57,5 +57,12 @@ public class OrderControllerTest {
         assertThat(response.getStatusCode()).isEqualTo(HttpStatus.OK);
         assertThat(response.getBody()).isNotNull();
         assertThat(response.getBody()).hasSize(2);
+    }
+
+    private User createUser() {
+        return User.builder()
+                .displayName("Name")
+                .username("username")
+                .password("password").build();
     }
 }

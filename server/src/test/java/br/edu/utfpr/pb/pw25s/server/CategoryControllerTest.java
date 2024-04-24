@@ -41,6 +41,7 @@ public class CategoryControllerTest {
     }
 
     @Test
+    @DisplayName("Espera retorno das categorias inseridas para teste usando findAll")
     public void findAllCategoryTest() {
         categoryRepository.save(Category.builder().name("category1").build());
         categoryRepository.save(Category.builder().name("category2").build());

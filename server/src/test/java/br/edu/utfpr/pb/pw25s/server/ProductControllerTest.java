@@ -2,6 +2,7 @@ package br.edu.utfpr.pb.pw25s.server;
 
 import br.edu.utfpr.pb.pw25s.server.model.Category;
 import br.edu.utfpr.pb.pw25s.server.model.Product;
+import br.edu.utfpr.pb.pw25s.server.model.User;
 import br.edu.utfpr.pb.pw25s.server.repository.CategoryRepository;
 import br.edu.utfpr.pb.pw25s.server.repository.ProductRepository;
 import org.junit.jupiter.api.BeforeEach;
@@ -42,7 +43,7 @@ public class ProductControllerTest {
     @Test
     @DisplayName("Espera retorno de produtos inseridos para teste usando findAll")
     public void findAllProductsTest() {
-        Category category = Category.builder().name("category").build();
+        Category category = createCategory();
         categoryRepository.save(category);
 
         productRepository.save(Product.builder().name("product1").price(BigDecimal.valueOf(100)).category(category).build());
@@ -56,5 +57,10 @@ public class ProductControllerTest {
         assertThat(response.getStatusCode()).isEqualTo(HttpStatus.OK);
         assertThat(response.getBody()).isNotNull();
         assertThat(response.getBody()).hasSize(2);
+    }
+
+    private Category createCategory() {
+        return Category.builder()
+                .name("category").build();
     }
 }
