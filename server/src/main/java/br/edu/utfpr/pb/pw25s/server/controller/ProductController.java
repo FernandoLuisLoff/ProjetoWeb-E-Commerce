@@ -37,9 +37,9 @@ public class ProductController extends CrudController<Product, ProductDto, Long>
         return modelMapper;
     }
 
-    @GetMapping("get-by-categoria/{id}")
-    public ResponseEntity<List<Product>> findAllByCategoria(@PathVariable Long id) {
-        return ResponseEntity.ok(service.findAllByCategoryId(id));
-    }
+//    @GetMapping("get-by-categoria/{id}")
+//    public ResponseEntity<List<Product>> findAllByCategoria(@PathVariable Long id) {
+//        return ResponseEntity.ok(service.findAllByCategoryId(id));
+//    }
     
 }

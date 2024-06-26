@@ -26,8 +26,8 @@ public class ProductServiceImpl extends CrudServiceImpl<Product, Long>
         return productRepository;
     }
 
-    @Override
-    public List<Product> findAllByCategoryId(Long id) {
-        return productRepository.findAllByCategoryId(id);
-    }
+//    @Override
+//    public List<Product> findAllByCategoryId(Long id) {
+//        return productRepository.findAllByCategoryId(id);
+//    }
 }

@@ -7,6 +7,6 @@ import java.util.List;
 
 public interface IProductService extends ICrudService <Product, Long>{
 
-    List<Product> findAllByCategoryId(Long id);
+//    List<Product> findAllByCategoryId(Long id);
 
 }
