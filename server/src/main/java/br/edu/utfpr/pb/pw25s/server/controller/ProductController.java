@@ -7,6 +7,8 @@ import br.edu.utfpr.pb.pw25s.server.service.ICrudService;
 import br.edu.utfpr.pb.pw25s.server.service.IProductService;
 import org.modelmapper.ModelMapper;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -34,4 +36,10 @@ public class ProductController extends CrudController<Product, ProductDto, Long>
     protected ModelMapper getModelMapper() {
         return modelMapper;
     }
+
+    @GetMapping("get-by-categoria/{id}")
+    public ResponseEntity<List<Product>> findAllByCategoria(@PathVariable Long id) {
+        return ResponseEntity.ok(service.findAllByCategoryId(id));
+    }
+    
 }

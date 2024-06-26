@@ -1,0 +1,3 @@
+Fazer um endpoint de listagem de produtos por categoria
+
+Fazer um endpoint retornando pedido e os itens do pedido no mesmo arquivo
