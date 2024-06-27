@@ -1,5 +1,6 @@
 import { ChangeEvent, useState } from "react";
 import "./style.css";
+import bicicletaLogin from "@/assets/bicicleta1.png";
 import { Link, useNavigate } from "react-router-dom";
 import { IUserLogin } from "@/commons/interfaces";
 import AuthService from "@/services/AuthService";
@@ -43,56 +44,63 @@ export function LoginPage() {
 
   return (
     <>
-      <main className="form-signup w-100 m-auto">
-        <form>
-          <div className="text-center">
-            <h1 className="h3 mb-3 fw-normal">Login</h1>
+      <div className="container-fluid vh-100">
+        <div className="row h-100">
+          <div className="col-lg-6 d-none d-lg-flex bg-light align-items-center justify-content-center">
+            <img src={bicicletaLogin} className="img-fluid" alt="Bicicleta" />
           </div>
-          <div className="form-floating">
-            <input
-              id="username"
-              name="username"
-              className="form-control"
-              type="text"
-              placeholder="Informe o usuário"
-              onChange={onChange}
-            />
-            <label htmlFor="username">Informe o usuário</label>
-          </div>
-          <div className="form-floating">
-            <input
-              id="password"
-              name="password"
-              className="form-control"
-              type="password"
-              placeholder="Informe a senha"
-              onChange={onChange}
-            />
-            <label htmlFor="password">Informe a senha</label>
-          </div>
+          <div className="col-lg-6 d-flex align-items-center justify-content-center">
+            <div className="w-75">
+              <h1 className="mb-4">Login</h1>
+              <form>
+                <div className="form-floating">
+                  <input
+                    id="username"
+                    name="username"
+                    className="form-control"
+                    type="text"
+                    placeholder="Informe o usuário"
+                    onChange={onChange}
+                  />
+                  <label htmlFor="username">Informe o usuário</label>
+                </div>
+                <div className="form-floating">
+                  <input
+                    id="password"
+                    name="password"
+                    className="form-control"
+                    type="password"
+                    placeholder="Informe a senha"
+                    onChange={onChange}
+                  />
+                  <label htmlFor="password">Informe a senha</label>
+                </div>
 
-          {apiError && (
-            <div className="col-12 mb-3">
-              <div className="alert alert-danger">{apiError}</div>
+                {apiError && (
+                  <div className="col-12 mb-3">
+                    <div className="alert alert-danger">{apiError}</div>
+                  </div>
+                )}
+                {apiSuccess && (
+                  <div className="col-12 mb-3">
+                    <div className="alert alert-success">{apiSuccess}</div>
+                  </div>
+                )}
+
+                <ButtonWithProgress 
+                  onClick={onClickLogin}
+                  disabled={pendingApiCall}
+                  pendingApiCall={pendingApiCall}
+                  text="Login"
+                />   
+              </form>
+              <div className="text-center">
+                <Link to="/signup">Deseja cadastrar-se</Link>
+              </div>
             </div>
-          )}
-          {apiSuccess && (
-            <div className="col-12 mb-3">
-              <div className="alert alert-success">{apiSuccess}</div>
-            </div>
-          )}
-          
-          <ButtonWithProgress 
-            onClick={onClickLogin}
-            disabled={pendingApiCall}
-            pendingApiCall={pendingApiCall}
-            text="Login"
-          />         
-        </form>
-        <div className="text-center">
-          <Link to="/signup">Deseja cadastrar-se</Link>
+          </div>
         </div>
-      </main>
+      </div>
     </>
   );
 }

@@ -19,6 +19,8 @@ public class ProductDto {
 
     private BigDecimal price;
 
+    private String url_img;
+
     private CategoryDto category;
 
 }

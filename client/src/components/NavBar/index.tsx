@@ -1,6 +1,7 @@
 import { Link, NavLink, useNavigate } from "react-router-dom";
-import logo from "@/assets/utfpr-logo.png";
+import logo from "@/assets/bicicleta2.webp";
 import AuthService from "@/services/AuthService";
+import { CiLogout } from "react-icons/ci";
 
 export function NavBar() {
   const navigate = useNavigate();
@@ -15,7 +16,7 @@ export function NavBar() {
       <div className="container">
         <nav className="navbar navbar-light navbar-expand">
           <Link to="/" className="navbar-brand">
-            <img src={logo} width="60" alt="UTFPR" />
+            <img src={logo} width="60" alt="Logo" />
           </Link>
           <ul className="navbar-nav me-auto mb-2 mb-md-0">
             <li className="nav-item">
@@ -28,43 +29,24 @@ export function NavBar() {
                 Home
               </NavLink>
             </li>
-            <li className="nav-item">
-              <NavLink
-                to="/categories"
-                className={(navData) =>
-                  navData.isActive ? "nav-link active" : "nav-link"
-                }
-              >
-                Categorias
-              </NavLink>
-            </li>
-            <li className="nav-item">
-              <NavLink
-                to="/products"
-                className={(navData) =>
-                  navData.isActive ? "nav-link active" : "nav-link"
-                }
-              >
-                Produtos
-              </NavLink>
-            </li>
 
-            <li className="nav-item">
+          </ul>
+
+          <ul className="navbar-nav ms-auto mb-2 mb-md-0">
+            <li className="nav-item" onClick={onClickLogout}>
               <NavLink
-                to="/products-v2"
+                to="/"
                 className={(navData) =>
                   navData.isActive ? "nav-link active" : "nav-link"
                 }
               >
-                Produtos V2
+                <div className="d-flex align-items-center">
+                  <CiLogout />
+                  <span className="ml-5">Sair</span>
+                </div>
               </NavLink>
             </li>
-
-            <li className="nav-item">
-              <button className="btn btn-light" onClick={onClickLogout}>
-                &times; Sair
-              </button>
-            </li>
+            
           </ul>
         </nav>
       </div>

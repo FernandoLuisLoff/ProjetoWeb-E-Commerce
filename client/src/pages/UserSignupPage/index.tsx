@@ -5,6 +5,7 @@ import AuthService from "@/services/AuthService";
 import { IUserSigup } from "@/commons/interfaces";
 import { ButtonWithProgress } from "@/components/ButtonWithProgress";
 import { Input } from "@/components/Input";
+import bicicletasingupPage from "@/assets/bicicleta2.webp";
 
 export function UserSignupPage() {
   const [form, setForm] = useState({
@@ -57,76 +58,85 @@ export function UserSignupPage() {
 
   return (
     <>
-      <main className="form-signup w-100 m-auto">
-        <form>
-          <div className="text-center">
-            <h1 className="h3 mb-3 fw-normal">Novo usuário</h1>
-          </div>
-          <div className="form-floating">
-            <Input
-              id="displayName"
-              name="displayName"
-              type="text"
-              placeholder="Informe o seu nome"
-              className="form-control"
-              onChange={onChange}
-              value={form.displayName}
-              hasError={errors.displayName ? true : false}
-              error={errors.displayName}
-              label="Informe o seu nome"
-            />
-          </div>
-          <div className="form-floating">
-            <Input
-              id="username"
-              name="username"
-              type="text"
-              placeholder="Informe o seu usuário"
-              className="form-control"
-              onChange={onChange}
-              value={form.username}
-              hasError={errors.username ? true : false}
-              error={errors.username}
-              label="Informe o seu usuário"
-            />
-          </div>
-          <div className="form-floating">
-            <Input
-              id="password"
-              name="password"
-              type="password"
-              placeholder="******"
-              className="form-control"
-              onChange={onChange}
-              value={form.password}
-              hasError={errors.password ? true : false}
-              error={errors.password}
-              label="Informe a sua senha"
-            />
-          </div>
+      <div className="container-fluid vh-100">
+        <div className="row h-100">
+          <div className="col-lg-6 d-flex align-items-center justify-content-center">
+            <div className="w-75">
+              <form>
+                <div className="text-center">
+                  <h1 className="h3 mb-3 fw-normal">Novo usuário</h1>
+                </div>
+                <div className="form-floating">
+                  <Input
+                    id="displayName"
+                    name="displayName"
+                    type="text"
+                    placeholder="Informe o seu nome"
+                    className="form-control"
+                    onChange={onChange}
+                    value={form.displayName}
+                    hasError={errors.displayName ? true : false}
+                    error={errors.displayName}
+                    label="Informe o seu nome"
+                  />
+                </div>
+                <div className="form-floating">
+                  <Input
+                    id="username"
+                    name="username"
+                    type="text"
+                    placeholder="Informe o seu usuário"
+                    className="form-control"
+                    onChange={onChange}
+                    value={form.username}
+                    hasError={errors.username ? true : false}
+                    error={errors.username}
+                    label="Informe o seu usuário"
+                  />
+                </div>
+                <div className="form-floating">
+                  <Input
+                    id="password"
+                    name="password"
+                    type="password"
+                    placeholder="******"
+                    className="form-control"
+                    onChange={onChange}
+                    value={form.password}
+                    hasError={errors.password ? true : false}
+                    error={errors.password}
+                    label="Informe a sua senha"
+                  />
+                </div>
 
-          {apiError && (
-            <div className="col-12 mb-3">
-              <div className="alert alert-danger">{apiError}</div>
-            </div>
-          )}
-          {apiSuccess && (
-            <div className="col-12 mb-3">
-              <div className="alert alert-success">{apiSuccess}</div>
-            </div>
-          )}
+                {apiError && (
+                  <div className="col-12 mb-3">
+                    <div className="alert alert-danger">{apiError}</div>
+                  </div>
+                )}
+                {apiSuccess && (
+                  <div className="col-12 mb-3">
+                    <div className="alert alert-success">{apiSuccess}</div>
+                  </div>
+                )}
 
-          <ButtonWithProgress
-            onClick={onClickSignup}
-            disabled={pendingApiCall}
-            pendingApiCall={pendingApiCall}
-            text="Cadastrar"
-          />
-        </form>
-        <div className="text-center">
-          <Link to="/login">Ir para tela de login</Link>
+                <ButtonWithProgress
+                  onClick={onClickSignup}
+                  disabled={pendingApiCall}
+                  pendingApiCall={pendingApiCall}
+                  text="Cadastrar"
+                />
+              </form>
+              <div className="text-center">
+                <Link to="/login">Ir para tela de login</Link>
+              </div>
+            </div>
+          </div>
+          <div className="col-lg-6 d-none d-lg-flex bg-light align-items-center justify-content-center">
+            <img src={bicicletasingupPage} className="img-fluid" alt="Bicicleta" />
+          </div>
         </div>
-      </main>
+      </div>
     </>
   );
 }

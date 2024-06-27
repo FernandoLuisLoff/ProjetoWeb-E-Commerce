@@ -19,5 +19,6 @@ export interface IProduct {
   name: string;
   price: number;
   description: string;
+  url_img: string;
   category: ICategory;
 }
