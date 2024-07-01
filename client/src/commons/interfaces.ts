@@ -21,4 +21,19 @@ export interface IProduct {
   description: string;
   url_img: string;
   category: ICategory;
+  quantity: number;
+}
+
+export interface IOrder {
+  id?: number;
+  totalValue: number;
+  user: IUserLogin;
+}
+
+export interface IOrderItem {
+  id?: number;
+  totalValue: number;
+  amount: number;
+  order: IOrder;
+  product: IProduct
 }
