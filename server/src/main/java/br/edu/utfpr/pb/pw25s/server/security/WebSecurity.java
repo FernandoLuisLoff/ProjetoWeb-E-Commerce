@@ -61,6 +61,10 @@ public class WebSecurity {
 
         // configura a authorização das requisições
         http.authorizeHttpRequests((authorize) -> authorize
+                //permite que a rota "/categories" seja acessada, mesmo sem o usuário estar autenticado desde que o método HTTP da requisição seja POST
+                .requestMatchers(antMatcher(HttpMethod.GET, "/categories/**")).permitAll()
+                //permite que a rota "/products" seja acessada, mesmo sem o usuário estar autenticado desde que o método HTTP da requisição seja POST
+                .requestMatchers(antMatcher(HttpMethod.GET, "/products/**")).permitAll()
                 //permite que a rota "/users" seja acessada, mesmo sem o usuário estar autenticado desde que o método HTTP da requisição seja POST
                 .requestMatchers(antMatcher(HttpMethod.POST, "/users/**")).permitAll()
                 //permite que a rota "/error" seja acessada por qualquer requisição mesmo o usuário não estando autenticado

@@ -6,6 +6,8 @@ import br.edu.utfpr.pb.pw25s.server.repository.CategoryRepository;
 import br.edu.utfpr.pb.pw25s.server.repository.ProductRepository;
 import br.edu.utfpr.pb.pw25s.server.service.ICategoryService;
 import br.edu.utfpr.pb.pw25s.server.service.IProductService;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Service;
 
@@ -26,8 +28,8 @@ public class ProductServiceImpl extends CrudServiceImpl<Product, Long>
         return productRepository;
     }
 
-//    @Override
-//    public List<Product> findAllByCategoryId(Long id) {
-//        return productRepository.findAllByCategoryId(id);
-//    }
+    @Override
+    public Page<Product> getProdutosByCategory(Category categoria, Pageable pageable) {
+        return productRepository.findProdutosByCategoria(categoria, pageable);
+    }
 }

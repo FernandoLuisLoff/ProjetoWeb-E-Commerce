@@ -1,7 +1,7 @@
 package br.edu.utfpr.pb.pw25s.server.controller;
 
-import br.edu.utfpr.pb.pw25s.server.model.Category;
 import br.edu.utfpr.pb.pw25s.server.service.ICrudService;
+import jakarta.validation.Valid;
 import org.modelmapper.ModelMapper;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -9,13 +9,11 @@ import org.springframework.data.domain.Sort;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-
-import jakarta.validation.Valid;
 import java.io.Serializable;
 import java.util.List;
 import java.util.stream.Collectors;
-// T = class type, D = dto type, ID = attribute related to primary key type
-public abstract class CrudController <T, D, ID extends Serializable> {
+
+public abstract class CrudController<T, D, ID extends Serializable> {
 
     protected abstract ICrudService<T, ID> getService();
     protected abstract ModelMapper getModelMapper();
@@ -28,24 +26,24 @@ public abstract class CrudController <T, D, ID extends Serializable> {
         this.typeDtoClass = typeDtoClass;
     }
 
-    private D convertToDto(T entity) {
+    protected D convertToDto(T entity) {
         return getModelMapper().map(entity, this.typeDtoClass);
     }
 
-    private T convertToEntity(D entityDto) {
+    protected T convertToEntity(D entityDto) {
         return getModelMapper().map(entityDto, this.typeClass);
     }
 
-    @GetMapping //http://ip.api:port/classname
-    public ResponseEntity<List<Category>> findAll() {
+    @GetMapping
+    public ResponseEntity<List<D>> findAll() {
         return ResponseEntity.ok(
-                (List<Category>) getService().findAll().stream().map(
+                getService().findAll().stream().map(
                         this::convertToDto).collect(Collectors.toList()
                 )
         );
     }
 
-    @GetMapping("page")  //http://ip.api:port/classname/page
+    @GetMapping("page")
     public ResponseEntity<Page<D>> findAll(
             @RequestParam int page,
             @RequestParam int size,
@@ -63,9 +61,9 @@ public abstract class CrudController <T, D, ID extends Serializable> {
     }
 
     @GetMapping("{id}")
-    public ResponseEntity<?> findOne(@PathVariable ID id) {
+    public ResponseEntity<D> findOne(@PathVariable ID id) {
         T entity = getService().findOne(id);
-        if (entity != null) {
+        if ( entity != null) {
             return ResponseEntity.ok(convertToDto(entity));
         } else {
             return ResponseEntity.noContent().build();
@@ -76,14 +74,12 @@ public abstract class CrudController <T, D, ID extends Serializable> {
     public ResponseEntity<D> create(@RequestBody @Valid D entity) {
         return ResponseEntity.status(HttpStatus.CREATED)
                 .body(convertToDto(getService().save(convertToEntity(entity))));
-
     }
 
     @PutMapping("{id}")
     public ResponseEntity<D> update(@PathVariable ID id, @RequestBody @Valid D entity) {
         return ResponseEntity.status(HttpStatus.OK)
                 .body(convertToDto(getService().save(convertToEntity(entity))));
-
     }
 
     @GetMapping("exists/{id}")
@@ -97,9 +93,8 @@ public abstract class CrudController <T, D, ID extends Serializable> {
     }
 
     @DeleteMapping("{id}")
-    public ResponseEntity<Object> delete(@PathVariable ID id) {
+    public ResponseEntity<Void> delete(@PathVariable ID id) {
         getService().delete(id);
         return ResponseEntity.noContent().build();
     }
-
 }

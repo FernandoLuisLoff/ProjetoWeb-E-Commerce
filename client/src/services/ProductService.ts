@@ -43,10 +43,32 @@ const findById = async (id: number): Promise<any> => {
   return response;
 };
 
+const pageByCategory = async (page: number, categoryId: number): Promise<any> => {
+  let response;
+  try {
+    response = await api.get(`${PRODUCTS_URL}/listByCategory/${categoryId}?page=${page}&size=12`);
+  } catch (error: any) {
+    response = error.response;
+  }
+  return response;
+}
+
+const page = async (page: number): Promise<any> => {
+  let response;
+  try {
+    response = await api.get(`${PRODUCTS_URL}/page?page=${page}&size=12`);
+  } catch (error: any) {
+    response = error.response;
+  }
+  return response;
+}
+
 const ProductService = {
   findAll,
   remove,
   save,
+  pageByCategory,
+  page,
   findById,
 };
 

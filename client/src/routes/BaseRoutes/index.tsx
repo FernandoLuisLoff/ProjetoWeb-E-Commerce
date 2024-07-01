@@ -1,14 +1,11 @@
 import { HomePage } from "@/pages/HomePage";
+import { CartPage } from "@/pages/CartPage";
 import { LoginPage } from "@/pages/LoginPage";
+import { ProductPage } from "@/pages/ProductPage"
+import { FinalyPage } from "@/pages/FinalyPage"
 import { UserSignupPage } from "@/pages/UserSignupPage";
 import { Route, Routes } from "react-router-dom";
-import { AuthenticatedRoutes } from "../AuthenticatedRoutes";
-import { CategoryListPage } from "@/pages/CategoryListPage";
-import { CategoryFormPage } from "@/pages/CategoryFormPage";
-import { ProductListPage } from "@/pages/ProductListPage";
-import { ProductFormPage } from "@/pages/ProductFormPage";
-import { ProductListPageV2 } from "@/pages/ProductListPageV2";
-import { ProductFormPageV2 } from "@/pages/ProductFormPageV2";
+import { AuthenticatedRoutes, PublicRoutes } from "../AuthenticatedRoutes";
 
 export function BaseRoutes() {
   return (
@@ -17,22 +14,17 @@ export function BaseRoutes() {
       <Route path="/signup" element={<UserSignupPage />} />
       <Route path="/login" element={<LoginPage />} />
 
-      {/* Protected Routes */}
-      <Route element={<AuthenticatedRoutes />}>
+      <Route element={<PublicRoutes />}>
+        {/* Public Routes */}
         <Route path="/" element={<HomePage />} />
         <Route path="/home" element={<HomePage />} />
+        <Route path="/cart" element={<CartPage />} />
+        <Route path="/products/:id" element={<ProductPage />} />
+      </Route>
 
-        <Route path="/categories" element={<CategoryListPage />} />
-        <Route path="/categories/new" element={<CategoryFormPage />} />
-        <Route path="/categories/:id" element={<CategoryFormPage />} />
-
-        <Route path="/products" element={<ProductListPage />} />
-        <Route path="/products/new" element={<ProductFormPage />} />
-        <Route path="/products/:id" element={<ProductFormPage />} />
-
-        <Route path="/products-v2" element={<ProductListPageV2 />} />
-        <Route path="/products-v2/new" element={<ProductFormPageV2 />} />
-        <Route path="/products-v2/:id" element={<ProductFormPageV2 />} />
+      <Route element={<AuthenticatedRoutes />}>
+        {/* Protected Routes */}        
+        <Route path="/finaly" element={<FinalyPage />} />
       </Route>
     </Routes>
   );
